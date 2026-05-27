@@ -1,0 +1,958 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Domain Roulette Launch Lab turns three random name.com domains into a clear product concept, judge pitch, MVP plan, and launch checklist."
+    >
+    <title>Domain Roulette Launch Lab</title>
+    <style>
+      :root {
+        --ink: #15191f;
+        --muted: #5e6673;
+        --subtle: #f4f6f8;
+        --surface: #ffffff;
+        --line: #d9dee5;
+        --brand: #245b7c;
+        --brand-soft: #e5f2f8;
+        --gold: #a96f12;
+        --gold-soft: #fff3d9;
+        --green: #27715b;
+        --green-soft: #e4f5ef;
+        --red: #9a3d34;
+        --red-soft: #f9e7e4;
+        --shadow: 0 18px 45px rgba(24, 35, 51, 0.08);
+        color-scheme: light;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      body {
+        margin: 0;
+        background: var(--subtle);
+        color: var(--ink);
+        letter-spacing: 0;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      a {
+        color: var(--brand);
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px clamp(16px, 4vw, 36px);
+        background: rgba(255, 255, 255, 0.94);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(12px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 760;
+      }
+
+      .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        background: var(--brand);
+        color: #fff;
+        font-size: 16px;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .lang-button,
+      .icon-button,
+      .primary-button,
+      .secondary-button {
+        min-height: 38px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        color: var(--ink);
+        padding: 0 12px;
+        cursor: pointer;
+      }
+
+      .lang-button[aria-pressed="true"] {
+        border-color: var(--brand);
+        background: var(--brand-soft);
+        color: var(--brand);
+        font-weight: 700;
+      }
+
+      .primary-button {
+        border-color: var(--brand);
+        background: var(--brand);
+        color: #fff;
+        font-weight: 760;
+      }
+
+      .secondary-button {
+        background: var(--surface);
+        font-weight: 680;
+      }
+
+      .app {
+        width: min(1460px, 100%);
+        margin: 0 auto;
+        padding: 24px clamp(14px, 3vw, 30px) 36px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+        gap: 20px;
+        align-items: stretch;
+        margin-bottom: 20px;
+      }
+
+      .hero-main,
+      .review-strip,
+      .panel,
+      .metric,
+      .domain-row,
+      .output-box {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .hero-main {
+        padding: clamp(22px, 4vw, 34px);
+        box-shadow: var(--shadow);
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--brand);
+        font-size: 0.82rem;
+        font-weight: 780;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        line-height: 1.15;
+      }
+
+      h1 {
+        max-width: 940px;
+        font-size: clamp(2rem, 5vw, 4rem);
+      }
+
+      .lead {
+        max-width: 820px;
+        margin: 16px 0 0;
+        color: var(--muted);
+        font-size: clamp(1rem, 2vw, 1.18rem);
+        line-height: 1.65;
+      }
+
+      .review-strip {
+        display: grid;
+        gap: 12px;
+        padding: 20px;
+        align-content: start;
+      }
+
+      .review-strip ol {
+        margin: 0;
+        padding-left: 22px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .status-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 18px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        min-height: 30px;
+        border-radius: 999px;
+        padding: 0 10px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 0.88rem;
+        font-weight: 680;
+      }
+
+      .badge.good {
+        background: var(--green-soft);
+        border-color: #b8dfd2;
+        color: var(--green);
+      }
+
+      .badge.warn {
+        background: var(--gold-soft);
+        border-color: #ead39c;
+        color: var(--gold);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 390px minmax(0, 1fr);
+        gap: 20px;
+      }
+
+      .panel {
+        padding: 18px;
+        min-width: 0;
+      }
+
+      .panel + .panel {
+        margin-top: 16px;
+      }
+
+      .panel h2 {
+        margin-bottom: 12px;
+        font-size: 1.2rem;
+      }
+
+      .helper {
+        margin: 0 0 14px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--muted);
+        font-size: 0.86rem;
+        font-weight: 720;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        color: var(--ink);
+        padding: 10px 11px;
+      }
+
+      textarea {
+        min-height: 96px;
+        resize: vertical;
+      }
+
+      .field-stack {
+        display: grid;
+        gap: 12px;
+      }
+
+      .domain-input {
+        display: grid;
+        grid-template-columns: 28px minmax(0, 1fr);
+        gap: 8px;
+        align-items: center;
+      }
+
+      .domain-input span {
+        display: grid;
+        place-items: center;
+        height: 38px;
+        border-radius: 8px;
+        background: var(--brand-soft);
+        color: var(--brand);
+        font-weight: 800;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .metric {
+        min-height: 94px;
+        padding: 14px;
+      }
+
+      .metric strong {
+        display: block;
+        font-size: clamp(1.4rem, 3vw, 2.1rem);
+      }
+
+      .metric span {
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
+      .domain-table {
+        display: grid;
+        gap: 10px;
+      }
+
+      .domain-row {
+        display: grid;
+        grid-template-columns: minmax(160px, 0.9fr) repeat(5, minmax(54px, 0.36fr)) minmax(170px, 1fr);
+        gap: 8px;
+        align-items: center;
+        padding: 12px;
+      }
+
+      .domain-row.header {
+        background: #eef2f5;
+        font-size: 0.82rem;
+        font-weight: 780;
+        color: var(--muted);
+      }
+
+      .domain-name {
+        font-weight: 780;
+        overflow-wrap: anywhere;
+      }
+
+      .score {
+        display: inline-grid;
+        place-items: center;
+        min-width: 42px;
+        height: 32px;
+        border-radius: 8px;
+        background: var(--subtle);
+        font-weight: 760;
+      }
+
+      .winner {
+        background: var(--green-soft);
+        border-color: #a8d7c8;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin: 0 0 14px;
+      }
+
+      .tab {
+        border: 1px solid var(--line);
+        background: var(--surface);
+        border-radius: 999px;
+        min-height: 34px;
+        padding: 0 12px;
+        cursor: pointer;
+      }
+
+      .tab[aria-selected="true"] {
+        border-color: var(--brand);
+        background: var(--brand-soft);
+        color: var(--brand);
+        font-weight: 780;
+      }
+
+      .outputs {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .output-box {
+        padding: 15px;
+        min-height: 170px;
+      }
+
+      .output-box.full {
+        grid-column: 1 / -1;
+      }
+
+      .output-box h3 {
+        margin-bottom: 8px;
+        font-size: 1rem;
+      }
+
+      .output-box p,
+      .output-box li {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .output-box ul {
+        margin: 0;
+        padding-left: 19px;
+      }
+
+      .copy-box {
+        min-height: 180px;
+        white-space: pre-wrap;
+        border: 1px dashed #b8c0cb;
+        background: #fbfcfd;
+        border-radius: 8px;
+        padding: 14px;
+        color: var(--ink);
+        line-height: 1.55;
+      }
+
+      .claim-boundary {
+        margin-top: 16px;
+        background: var(--red-soft);
+        border: 1px solid #e9b8b1;
+        border-radius: 8px;
+        padding: 14px;
+        color: var(--red);
+        line-height: 1.5;
+      }
+
+      .i18n-en {
+        display: none;
+      }
+
+      body[data-lang="en"] .i18n-ja {
+        display: none;
+      }
+
+      body[data-lang="en"] .i18n-en {
+        display: inline;
+      }
+
+      body[data-lang="en"] .block.i18n-en {
+        display: block;
+      }
+
+      @media (max-width: 1120px) {
+        .hero,
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .metrics,
+        .outputs {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 760px) {
+        .topbar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        h1 {
+          font-size: 2.1rem;
+        }
+
+        .metrics,
+        .outputs {
+          grid-template-columns: 1fr;
+        }
+
+        .domain-row,
+        .domain-row.header {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .domain-row.header {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body data-lang="ja">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">DR</div>
+        <span>Domain Roulette Launch Lab</span>
+      </div>
+      <div class="nav-actions">
+        <button class="lang-button" data-lang-button="ja" aria-pressed="true">日本語</button>
+        <button class="lang-button" data-lang-button="en" aria-pressed="false">EN</button>
+        <a class="secondary-button" href="https://dwny-2026-hackathon.devpost.com/" target="_blank" rel="noreferrer">Devpost</a>
+        <a class="secondary-button" href="https://github.com/daideguchi/domain-roulette-launch-lab" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </header>
+
+    <main class="app">
+      <section class="hero" aria-label="Domain roulette workbench">
+        <div class="hero-main">
+          <p class="eyebrow">name.com Domain Roulette · DeveloperWeek NY</p>
+          <h1>
+            <span class="i18n-ja">3つのランダムドメインを、提出できる事業案に変える。</span>
+            <span class="i18n-en">Turn three random domains into a submission-ready startup concept.</span>
+          </h1>
+          <p class="lead">
+            <span class="i18n-ja">Domain Roulette Launch Labは、名前の偶然をそのまま使い、ドメイン比較、勝ち筋、MVP、審査員向けコピーまで一気に作るための道具です。</span>
+            <span class="i18n-en">Domain Roulette Launch Lab turns the randomness of a domain draw into a clear product choice, MVP plan, and judge-ready pitch.</span>
+          </p>
+          <div class="status-row">
+            <span class="badge good">
+              <span class="i18n-ja">実用ワークベンチ</span>
+              <span class="i18n-en">working lab</span>
+            </span>
+            <span class="badge warn">
+              <span class="i18n-ja">name.com賞金レーン向け</span>
+              <span class="i18n-en">built for name.com cash track</span>
+            </span>
+            <span class="badge">
+              <span class="i18n-ja">提出コピー出力</span>
+              <span class="i18n-en">submission copy export</span>
+            </span>
+          </div>
+        </div>
+        <aside class="review-strip">
+          <h2>
+            <span class="i18n-ja">30秒レビュー手順</span>
+            <span class="i18n-en">30-Second Review Path</span>
+          </h2>
+          <ol>
+            <li>
+              <span class="i18n-ja">3つのドメインを確認する。</span>
+              <span class="i18n-en">Check the three domains.</span>
+            </li>
+            <li>
+              <span class="i18n-ja">分析ボタンを押し、勝ちドメインを見る。</span>
+              <span class="i18n-en">Run the analysis and inspect the winning domain.</span>
+            </li>
+            <li>
+              <span class="i18n-ja">MVP、リスク、提出コピーを読む。</span>
+              <span class="i18n-en">Read the MVP plan, risks, and submission copy.</span>
+            </li>
+          </ol>
+          <div class="claim-boundary">
+            <strong>
+              <span class="i18n-ja">主張の境界:</span>
+              <span class="i18n-en">Claim boundary:</span>
+            </strong>
+            <span class="i18n-ja">これは実ドメイン割当の代わりではありません。割り当てられた3ドメインを入れて、判断を速くするための道具です。</span>
+            <span class="i18n-en">This does not replace the official domain draw. It helps teams reason quickly after receiving their three assigned domains.</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="grid">
+        <div>
+          <section class="panel">
+            <h2>
+              <span class="i18n-ja">1. ドメインを入れる</span>
+              <span class="i18n-en">1. Enter domains</span>
+            </h2>
+            <p class="helper">
+              <span class="i18n-ja">本番では、name.comのルーレットで出た3つのドメインをここに入れます。今はサンプルで動きます。</span>
+              <span class="i18n-en">In the real track, enter the three domains drawn from name.com. The app works with sample domains now.</span>
+            </p>
+            <div class="field-stack">
+              <div class="domain-input">
+                <span>A</span>
+                <input id="domainA" value="quietcart.com" aria-label="domain A">
+              </div>
+              <div class="domain-input">
+                <span>B</span>
+                <input id="domainB" value="petledger.ai" aria-label="domain B">
+              </div>
+              <div class="domain-input">
+                <span>C</span>
+                <input id="domainC" value="citypause.app" aria-label="domain C">
+              </div>
+              <div>
+                <label for="market">
+                  <span class="i18n-ja">狙う市場</span>
+                  <span class="i18n-en">Target market</span>
+                </label>
+                <select id="market">
+                  <option value="consumer">Consumer / daily life</option>
+                  <option value="b2b">B2B / operations</option>
+                  <option value="creator">Creator / media</option>
+                  <option value="community">Community / local</option>
+                </select>
+              </div>
+              <div>
+                <label for="constraint">
+                  <span class="i18n-ja">審査員に見せたい一言</span>
+                  <span class="i18n-en">One message for judges</span>
+                </label>
+                <textarea id="constraint">A random domain should not be a gimmick. It should become a product constraint that makes the idea sharper.</textarea>
+              </div>
+            </div>
+            <div class="button-row">
+              <button class="primary-button" id="analyzeBtn">
+                <span class="i18n-ja">分析する</span>
+                <span class="i18n-en">Analyze</span>
+              </button>
+              <button class="secondary-button" id="copyBtn">
+                <span class="i18n-ja">提出コピーをコピー</span>
+                <span class="i18n-en">Copy submission copy</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h2>
+              <span class="i18n-ja">2. 何を信じてよいか</span>
+              <span class="i18n-en">2. What to trust</span>
+            </h2>
+            <p class="helper">
+              <span class="i18n-ja">スコアは決定的な採点ではありません。短時間で会話を始めるための、説明可能な作業仮説です。</span>
+              <span class="i18n-en">Scores are not final truth. They are explainable working hypotheses for fast team discussion.</span>
+            </p>
+            <div class="button-row">
+              <span class="badge good">Explainable scoring</span>
+              <span class="badge">Human choice required</span>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel">
+          <h2>
+            <span class="i18n-ja">ドメイン比較</span>
+            <span class="i18n-en">Domain comparison</span>
+          </h2>
+          <div class="metrics">
+            <div class="metric">
+              <strong id="winnerDomain">quietcart.com</strong>
+              <span>
+                <span class="i18n-ja">勝ち候補</span>
+                <span class="i18n-en">winning candidate</span>
+              </span>
+            </div>
+            <div class="metric">
+              <strong id="topScore">87</strong>
+              <span>
+                <span class="i18n-ja">総合スコア</span>
+                <span class="i18n-en">overall score</span>
+              </span>
+            </div>
+            <div class="metric">
+              <strong id="mvpDays">3</strong>
+              <span>
+                <span class="i18n-ja">初回MVP日数</span>
+                <span class="i18n-en">MVP days</span>
+              </span>
+            </div>
+            <div class="metric">
+              <strong id="riskLevel">中</strong>
+              <span>
+                <span class="i18n-ja">注意度</span>
+                <span class="i18n-en">risk level</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="domain-table" id="domainTable" aria-live="polite"></div>
+
+          <div class="tabs" role="tablist" aria-label="Output tabs">
+            <button class="tab" role="tab" data-output-tab="brief" aria-selected="true">
+              <span class="i18n-ja">事業案</span>
+              <span class="i18n-en">Brief</span>
+            </button>
+            <button class="tab" role="tab" data-output-tab="mvp" aria-selected="false">MVP</button>
+            <button class="tab" role="tab" data-output-tab="copy" aria-selected="false">
+              <span class="i18n-ja">提出コピー</span>
+              <span class="i18n-en">Submission copy</span>
+            </button>
+          </div>
+
+          <div class="outputs" id="briefPanel">
+            <div class="output-box">
+              <h3>
+                <span class="i18n-ja">誰の課題か</span>
+                <span class="i18n-en">Who it helps</span>
+              </h3>
+              <p id="audienceText"></p>
+            </div>
+            <div class="output-box">
+              <h3>
+                <span class="i18n-ja">どう解決するか</span>
+                <span class="i18n-en">How it helps</span>
+              </h3>
+              <p id="solutionText"></p>
+            </div>
+            <div class="output-box">
+              <h3>
+                <span class="i18n-ja">name.comへの刺さり</span>
+                <span class="i18n-en">Why name.com should care</span>
+              </h3>
+              <p id="sponsorText"></p>
+            </div>
+            <div class="output-box">
+              <h3>
+                <span class="i18n-ja">弱点</span>
+                <span class="i18n-en">Risks</span>
+              </h3>
+              <p id="riskText"></p>
+            </div>
+          </div>
+
+          <div class="outputs" id="mvpPanel" hidden>
+            <div class="output-box full">
+              <h3>
+                <span class="i18n-ja">3日MVP計画</span>
+                <span class="i18n-en">Three-day MVP plan</span>
+              </h3>
+              <ul id="mvpList"></ul>
+            </div>
+            <div class="output-box full">
+              <h3>
+                <span class="i18n-ja">最初の検証</span>
+                <span class="i18n-en">First validation</span>
+              </h3>
+              <ul id="validationList"></ul>
+            </div>
+          </div>
+
+          <div class="outputs" id="copyPanel" hidden>
+            <div class="output-box full">
+              <h3>
+                <span class="i18n-ja">Devpost向けコピー</span>
+                <span class="i18n-en">Devpost copy</span>
+              </h3>
+              <div class="copy-box" id="submissionCopy"></div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script>
+      const text = {
+        ja: {
+          headers: ["ドメイン", "覚えやすさ", "意味の明確さ", "収益性", "実装しやすさ", "総合", "理由"],
+          market: {
+            consumer: "毎日の買い物や暮らしで、選択に迷う人",
+            b2b: "小さなチームで運用を回している事業者",
+            creator: "企画、文章、動画、配信を継続する個人クリエイター",
+            community: "地域や小さなコミュニティを運営する人"
+          },
+          riskHigh: "高",
+          riskMid: "中",
+          riskLow: "低",
+          copied: "コピー済み",
+          copy: "提出コピーをコピー",
+          reasons: {
+            short: "短く、口頭で伝えやすい",
+            clear: "単語の意味が想像しやすい",
+            suffix: "拡張子が用途と合いやすい",
+            premium: "少し尖っていて記憶に残る",
+            long: "少し長く、説明が必要"
+          },
+          brief: (domain, market, words) => `${domain}は、${market}のための小さなAI支援サービスです。ランダムに与えられた名前を制約として使い、${words.join("・")}という連想から、最初の価値を一画面で届けます。`,
+          solution: (domain) => `${domain}は、入力、判定、次の行動の3ステップに絞ります。ユーザーは悩みを入れ、AI補助の提案を受け、人間が最後に選びます。`,
+          sponsor: (domain) => `${domain}という名前を中心に、ドメインが単なる住所ではなく、商品設計そのものを決めることを見せます。name.comのDomain Rouletteの面白さを、実用的な起業ワークフローに変えます。`,
+          risk: (domain) => `${domain}のリスクは、名前の意味に引っ張られすぎることです。だからMVPでは、ドメインの面白さよりも、1人のユーザーが本当に完了できる作業に絞ります。`,
+          mvp: (domain) => [
+            `Day 1: ${domain}の対象ユーザーと一つの作業だけを決める`,
+            "Day 2: 入力フォーム、判断結果、次の行動を一画面で作る",
+            "Day 3: 3人に触ってもらい、分かりにくい言葉を消す"
+          ],
+          validation: [
+            "30秒で何の道具か説明できるか",
+            "最初の入力を迷わず入れられるか",
+            "出力を見て次の行動が分かるか",
+            "ドメイン名が覚えやすいか"
+          ],
+          copy: (domain, market, score) => `Domain Roulette Launch Lab selected ${domain} as the strongest candidate because it turns a random domain into a clear product constraint.\n\nThe concept helps ${market}. It scores ${score}/100 in this workbench because the name is memorable, explainable, and fast enough to prototype.\n\nThe product is intentionally simple: one user, one pain, one action. The goal is to show that a domain is not only a URL. In the name.com Domain Roulette track, the domain becomes the creative constraint that shapes the product.`
+        },
+        en: {
+          headers: ["Domain", "Memory", "Clarity", "Revenue", "Build", "Total", "Reason"],
+          market: {
+            consumer: "people making daily shopping or life decisions",
+            b2b: "small teams running operational work",
+            creator: "creators who need repeatable ideas and publishing workflows",
+            community: "people running local or niche communities"
+          },
+          riskHigh: "high",
+          riskMid: "medium",
+          riskLow: "low",
+          copied: "Copied",
+          copy: "Copy submission copy",
+          reasons: {
+            short: "short and easy to say",
+            clear: "the words suggest a clear use case",
+            suffix: "the extension fits the product shape",
+            premium: "distinct enough to be remembered",
+            long: "a little long and needs explanation"
+          },
+          brief: (domain, market, words) => `${domain} is a small AI-assisted product for ${market}. It treats the random name as a constraint and turns the associations ${words.join(", ")} into a first-screen workflow.`,
+          solution: (domain) => `${domain} keeps the workflow to three steps: input, judgment, and next action. The AI can suggest, but the human keeps the final choice.`,
+          sponsor: (domain) => `${domain} shows that a domain is not only an address. It can shape the product itself, turning name.com Domain Roulette into a practical startup workflow.`,
+          risk: (domain) => `The risk for ${domain} is overfitting the product to the name. The MVP keeps focus on one user and one task that can actually be completed.`,
+          mvp: (domain) => [
+            `Day 1: choose one user and one task for ${domain}`,
+            "Day 2: build input, judgment, and next action on one screen",
+            "Day 3: test with three people and remove confusing words"
+          ],
+          validation: [
+            "Can a judge understand it in 30 seconds?",
+            "Can a user enter the first input without instructions?",
+            "Does the output make the next action clear?",
+            "Is the domain memorable after one glance?"
+          ],
+          copy: (domain, market, score) => `Domain Roulette Launch Lab selected ${domain} as the strongest candidate because it turns a random domain into a clear product constraint.\n\nThe concept helps ${market}. It scores ${score}/100 in this workbench because the name is memorable, explainable, and fast enough to prototype.\n\nThe product is intentionally simple: one user, one pain, one action. The goal is to show that a domain is not only a URL. In the name.com Domain Roulette track, the domain becomes the creative constraint that shapes the product.`
+        }
+      };
+
+      const state = { lang: "ja", activeTab: "brief", lastCopy: "" };
+      const $ = (id) => document.getElementById(id);
+
+      function wordsFor(domain) {
+        return domain
+          .toLowerCase()
+          .replace(/^https?:\/\//, "")
+          .replace(/^www\./, "")
+          .split(".")[0]
+          .split(/[-_]/)
+          .flatMap((part) => part.match(/[a-z]+|\d+/g) || [part])
+          .filter(Boolean);
+      }
+
+      function scoreDomain(domain) {
+        const clean = domain.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "");
+        const base = clean.split(".")[0] || clean;
+        const ext = clean.includes(".") ? clean.split(".").pop() : "";
+        const words = wordsFor(clean);
+        const length = base.length;
+        const vowels = (base.match(/[aeiou]/g) || []).length;
+        const memory = Math.max(40, Math.min(98, 104 - length * 3 + (vowels >= 3 ? 10 : 0)));
+        const clarity = Math.max(38, Math.min(96, words.length <= 2 ? 82 + words.length * 4 : 68));
+        const revenue = Math.max(40, Math.min(96, 62 + (/(cart|pay|ledger|market|shop|care|guard|pilot|studio)/.test(base) ? 18 : 0) + (ext === "com" ? 8 : 0)));
+        const build = Math.max(42, Math.min(96, 88 - Math.max(0, words.length - 2) * 9 + (/(app|ai|io|com)/.test(ext) ? 5 : 0)));
+        const total = Math.round(memory * 0.28 + clarity * 0.27 + revenue * 0.25 + build * 0.20);
+        const reasonKeys = [];
+        if (length <= 12) reasonKeys.push("short");
+        if (words.length <= 2) reasonKeys.push("clear");
+        if (["com", "app", "ai", "io"].includes(ext)) reasonKeys.push("suffix");
+        if (total >= 84) reasonKeys.push("premium");
+        if (length > 14) reasonKeys.push("long");
+        return { clean, base, ext, words, memory, clarity, revenue, build, total, reasonKeys };
+      }
+
+      function analyze() {
+        const domains = [$("domainA").value, $("domainB").value, $("domainC").value].map(scoreDomain);
+        domains.sort((a, b) => b.total - a.total);
+        const winner = domains[0];
+        const langText = text[state.lang];
+        const market = langText.market[$("market").value];
+        const risk = winner.total < 72 ? langText.riskHigh : winner.total < 84 ? langText.riskMid : langText.riskLow;
+
+        $("winnerDomain").textContent = winner.clean;
+        $("topScore").textContent = winner.total;
+        $("mvpDays").textContent = winner.build >= 78 ? "3" : "5";
+        $("riskLevel").textContent = risk;
+
+        const table = $("domainTable");
+        table.innerHTML = "";
+        const header = document.createElement("div");
+        header.className = "domain-row header";
+        header.innerHTML = langText.headers.map((h) => `<span>${h}</span>`).join("");
+        table.appendChild(header);
+
+        domains.forEach((item, index) => {
+          const row = document.createElement("div");
+          row.className = `domain-row ${index === 0 ? "winner" : ""}`;
+          const reason = item.reasonKeys.map((key) => langText.reasons[key]).join(" / ");
+          row.innerHTML = `
+            <span class="domain-name">${item.clean}</span>
+            <span class="score">${Math.round(item.memory)}</span>
+            <span class="score">${Math.round(item.clarity)}</span>
+            <span class="score">${Math.round(item.revenue)}</span>
+            <span class="score">${Math.round(item.build)}</span>
+            <span class="score">${item.total}</span>
+            <span>${reason}</span>
+          `;
+          table.appendChild(row);
+        });
+
+        $("audienceText").textContent = langText.brief(winner.clean, market, winner.words);
+        $("solutionText").textContent = langText.solution(winner.clean);
+        $("sponsorText").textContent = langText.sponsor(winner.clean);
+        $("riskText").textContent = langText.risk(winner.clean);
+        $("mvpList").innerHTML = langText.mvp(winner.clean).map((item) => `<li>${item}</li>`).join("");
+        $("validationList").innerHTML = langText.validation.map((item) => `<li>${item}</li>`).join("");
+        state.lastCopy = langText.copy(winner.clean, market, winner.total);
+        $("submissionCopy").textContent = state.lastCopy;
+      }
+
+      function setLanguage(lang) {
+        state.lang = lang;
+        document.body.dataset.lang = lang;
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-lang-button]").forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.langButton === lang));
+        });
+        $("copyBtn").querySelector(".i18n-ja").textContent = lang === "ja" ? "提出コピーをコピー" : "";
+        analyze();
+      }
+
+      function setTab(tab) {
+        state.activeTab = tab;
+        document.querySelectorAll("[data-output-tab]").forEach((button) => {
+          button.setAttribute("aria-selected", String(button.dataset.outputTab === tab));
+        });
+        $("briefPanel").hidden = tab !== "brief";
+        $("mvpPanel").hidden = tab !== "mvp";
+        $("copyPanel").hidden = tab !== "copy";
+      }
+
+      document.querySelectorAll("[data-lang-button]").forEach((button) => {
+        button.addEventListener("click", () => setLanguage(button.dataset.langButton));
+      });
+      document.querySelectorAll("[data-output-tab]").forEach((button) => {
+        button.addEventListener("click", () => setTab(button.dataset.outputTab));
+      });
+      $("analyzeBtn").addEventListener("click", analyze);
+      $("copyBtn").addEventListener("click", async () => {
+        await navigator.clipboard?.writeText(state.lastCopy).catch(() => {});
+        const originalJa = "提出コピーをコピー";
+        const originalEn = "Copy submission copy";
+        $("copyBtn").textContent = text[state.lang].copied;
+        setTimeout(() => {
+          $("copyBtn").innerHTML = `<span class="i18n-ja">${originalJa}</span><span class="i18n-en">${originalEn}</span>`;
+        }, 1200);
+      });
+
+      analyze();
+    </script>
+  </body>
+</html>
