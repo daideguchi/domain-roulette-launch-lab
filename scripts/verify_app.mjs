@@ -44,7 +44,7 @@ const rows = await page.locator('#domainTable .domain-row').count();
 const copy = await page.locator('#submissionCopy').innerText();
 
 if (rows < 4) throw new Error(`expected table header plus 3 domain rows, got ${rows}`);
-for (const marker of ['30秒レビュー手順', 'ドメイン比較', '提出コピー', '主張の境界']) {
+for (const marker of ['30秒レビュー手順', 'ドメイン比較', '審査基準', '提出コピー', '主張の境界']) {
   if (!body.includes(marker)) throw new Error(`missing marker: ${marker}`);
 }
 if (!copy.includes('Domain Roulette Launch Lab selected')) {
@@ -53,7 +53,7 @@ if (!copy.includes('Domain Roulette Launch Lab selected')) {
 
 await page.getByRole('button', { name: 'EN' }).click();
 const english = await page.locator('body').innerText();
-for (const marker of ['30-Second Review Path', 'Domain comparison', 'Submission copy', 'Claim boundary']) {
+for (const marker of ['30-Second Review Path', 'Domain comparison', 'Judge fit', 'Submission copy', 'Claim boundary']) {
   if (!english.includes(marker)) throw new Error(`missing English marker: ${marker}`);
 }
 
@@ -65,4 +65,3 @@ server.close();
 console.log('domain_roulette_launch_lab_app_verify_ok');
 console.log(`domain_rows=${rows}`);
 console.log('screenshot=media/domain-roulette-launch-lab-full.png');
-

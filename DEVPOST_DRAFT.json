@@ -1,0 +1,16 @@
+{
+  "title": "Domain Roulette Launch Lab",
+  "tagline": "Turn three random name.com domains into a scored product choice, MVP plan, and judge-ready submission copy.",
+  "track": "name.com — Domain Roulette",
+  "live_app": "https://daideguchi.github.io/domain-roulette-launch-lab/",
+  "github": "https://github.com/daideguchi/domain-roulette-launch-lab",
+  "built_with": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "GitHub Pages",
+    "Playwright",
+    "Python verification scripts"
+  ],
+  "description": "Domain Roulette Launch Lab is a launch workbench for the name.com Domain Roulette track. After a team receives three random domains, the app helps them compare the names, choose the strongest product direction, map the idea to judging criteria, plan a three-day MVP, and generate Devpost-ready copy.\n\nThe inspiration is simple: in Domain Roulette, the domain is not only a URL. It becomes the creative constraint. A random name can either become a small joke, or it can force a team to sharpen the product idea quickly. This app is built for that moment.\n\nThe app accepts three domains and a target market, then generates explainable domain scores, a winning candidate, a product brief, a three-day MVP plan, first validation checks, a judging-criteria fit section, and a copy-ready Devpost pitch.\n\nThe product is intentionally transparent. It does not claim access to the official name.com random draw. It is built for the step after a team receives its official three domains. The current public app uses sample domains so the workflow can be reviewed before the final draw values are known.\n\nThe name.com fit is direct: the selected domain shapes the audience, first feature, MVP scope, and pitch. The app turns a domain from a web address into the design constraint for a product."
+}

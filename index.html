@@ -540,6 +540,10 @@
               <span class="i18n-ja">提出コピー出力</span>
               <span class="i18n-en">submission copy export</span>
             </span>
+            <span class="badge">
+              <span class="i18n-ja">審査基準に沿って確認</span>
+              <span class="i18n-en">judge-criteria fit</span>
+            </span>
           </div>
         </div>
         <aside class="review-strip">
@@ -688,6 +692,10 @@
               <span class="i18n-en">Brief</span>
             </button>
             <button class="tab" role="tab" data-output-tab="mvp" aria-selected="false">MVP</button>
+            <button class="tab" role="tab" data-output-tab="criteria" aria-selected="false">
+              <span class="i18n-ja">審査基準</span>
+              <span class="i18n-en">Judge fit</span>
+            </button>
             <button class="tab" role="tab" data-output-tab="copy" aria-selected="false">
               <span class="i18n-ja">提出コピー</span>
               <span class="i18n-en">Submission copy</span>
@@ -742,6 +750,23 @@
             </div>
           </div>
 
+          <div class="outputs" id="criteriaPanel" hidden>
+            <div class="output-box full">
+              <h3>
+                <span class="i18n-ja">name.com審査基準への合わせ方</span>
+                <span class="i18n-en">How it maps to name.com judging</span>
+              </h3>
+              <ul id="criteriaList"></ul>
+            </div>
+            <div class="output-box full">
+              <h3>
+                <span class="i18n-ja">ドメインとの深い接続</span>
+                <span class="i18n-en">Deep connection to the domain</span>
+              </h3>
+              <p id="connectionText"></p>
+            </div>
+          </div>
+
           <div class="outputs" id="copyPanel" hidden>
             <div class="output-box full">
               <h3>
@@ -792,6 +817,14 @@
             "出力を見て次の行動が分かるか",
             "ドメイン名が覚えやすいか"
           ],
+          criteria: (domain) => [
+            `Creative interpretation: ${domain}の言葉から、ただの名前ではなく具体的なユーザー行動を作る`,
+            "Technical execution: 入力、スコア、比較、MVP、提出コピーを一画面で生成する",
+            "Product polish: 日本語/英語、30秒レビュー、主張の境界を最初から見せる",
+            "Concept strength: ランダムな名前を、起業アイデアの制約として使う",
+            "Domain connection: ドメイン名が機能、対象ユーザー、提出ストーリーを決める"
+          ],
+          connection: (domain, words) => `${domain}は、${words.join("・")}という言葉の連想をそのままプロダクト設計に使います。名前を後から付けるのではなく、名前がユーザー、最初の機能、MVPの範囲を決める点がDomain Roulette向けです。`,
           copy: (domain, market, score) => `Domain Roulette Launch Lab selected ${domain} as the strongest candidate because it turns a random domain into a clear product constraint.\n\nThe concept helps ${market}. It scores ${score}/100 in this workbench because the name is memorable, explainable, and fast enough to prototype.\n\nThe product is intentionally simple: one user, one pain, one action. The goal is to show that a domain is not only a URL. In the name.com Domain Roulette track, the domain becomes the creative constraint that shapes the product.`
         },
         en: {
@@ -829,6 +862,14 @@
             "Does the output make the next action clear?",
             "Is the domain memorable after one glance?"
           ],
+          criteria: (domain) => [
+            `Creative interpretation: turn ${domain} into a concrete user workflow, not just a funny name`,
+            "Technical execution: generate scoring, comparison, MVP plan, and submission copy in one workbench",
+            "Product polish: provide Japanese/English UI, a 30-second review path, and clear claim boundaries",
+            "Strength of concept: use the random domain as a startup constraint",
+            "Domain connection: let the name shape the feature, audience, and pitch"
+          ],
+          connection: (domain, words) => `${domain} uses the associations ${words.join(", ")} as product constraints. The name is not attached after the idea; it shapes the user, first feature, MVP scope, and submission story.`,
           copy: (domain, market, score) => `Domain Roulette Launch Lab selected ${domain} as the strongest candidate because it turns a random domain into a clear product constraint.\n\nThe concept helps ${market}. It scores ${score}/100 in this workbench because the name is memorable, explainable, and fast enough to prototype.\n\nThe product is intentionally simple: one user, one pain, one action. The goal is to show that a domain is not only a URL. In the name.com Domain Roulette track, the domain becomes the creative constraint that shapes the product.`
         }
       };
@@ -910,6 +951,8 @@
         $("riskText").textContent = langText.risk(winner.clean);
         $("mvpList").innerHTML = langText.mvp(winner.clean).map((item) => `<li>${item}</li>`).join("");
         $("validationList").innerHTML = langText.validation.map((item) => `<li>${item}</li>`).join("");
+        $("criteriaList").innerHTML = langText.criteria(winner.clean).map((item) => `<li>${item}</li>`).join("");
+        $("connectionText").textContent = langText.connection(winner.clean, winner.words);
         state.lastCopy = langText.copy(winner.clean, market, winner.total);
         $("submissionCopy").textContent = state.lastCopy;
       }
@@ -932,6 +975,7 @@
         });
         $("briefPanel").hidden = tab !== "brief";
         $("mvpPanel").hidden = tab !== "mvp";
+        $("criteriaPanel").hidden = tab !== "criteria";
         $("copyPanel").hidden = tab !== "copy";
       }
 

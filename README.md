@@ -4,6 +4,10 @@ Live app: `https://daideguchi.github.io/domain-roulette-launch-lab/`
 
 GitHub: `https://github.com/daideguchi/domain-roulette-launch-lab`
 
+Demo video: `media/domain-roulette-launch-lab-demo.mp4`
+
+Screenshot: `media/domain-roulette-launch-lab-full.png`
+
 ## One-Sentence Pitch
 
 Domain Roulette Launch Lab helps name.com Domain Roulette teams turn three random domains into a clear product choice, MVP plan, risk check, and judge-ready submission copy.
@@ -23,11 +27,25 @@ How: the app scores each domain with explainable criteria, chooses a working can
 3. Press `Analyze`.
 4. Review the winner, scores, MVP plan, and submission copy.
 
+## Why It Fits The name.com Track
+
+The track is not only about finding a clever domain. The product needs to show how a domain can shape an idea.
+
+Domain Roulette Launch Lab maps the workbench to that goal:
+
+- creative interpretation: the domain becomes a product constraint
+- technical execution: scoring, comparison, MVP planning, and copy generation run in one browser app
+- product polish: Japanese/English UI, 30-second review path, and clear claim boundaries are visible on the first screen
+- concept strength: one user, one pain, one action
+- domain connection: the selected domain shapes the target user, first feature, and pitch
+
 ## Claim Boundary
 
 This app does not claim access to the official name.com random domain draw.
 
 It is a public prototype for what a team can do after receiving its three official domains. The scores are working hypotheses, not objective business truth.
+
+Before final submission, replace the sample domains with the three official assigned domains.
 
 ## Japanese Support
 
@@ -40,6 +58,12 @@ Japanese README: `README.ja.md`
 ```bash
 npm install
 npm run verify
+```
+
+Record the local demo video:
+
+```bash
+npm run record-demo
 ```
 
 Expected markers:

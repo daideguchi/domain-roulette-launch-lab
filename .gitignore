@@ -1,4 +1,5 @@
 node_modules/
 .DS_Store
 .vercel
-
+media/.demo-video-tmp/
+media/*.webm
