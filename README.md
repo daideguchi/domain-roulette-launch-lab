@@ -47,6 +47,19 @@ It is a public prototype for what a team can do after receiving its three offici
 
 Before final submission, replace the sample domains with the three official assigned domains.
 
+## Official-Domain Finalization
+
+When the organizer provides the three official roulette domains, update the default demo inputs with:
+
+```bash
+npm run set-domains -- first-domain.com second-domain.ai third-domain.app
+npm run verify
+```
+
+Then open the app, press `Analyze`, and use the generated `Submission copy` if the winning candidate changes.
+
+Do not use this command to pretend sample domains are official. It is only a fast replacement path after the official three domains are known, or after the project lead explicitly accepts the sample-domain fallback risk before the deadline.
+
 ## Japanese Support
 
 The app includes an `EN / 日本語` language switch. Japanese is first-class because the builder is Japanese and the portfolio is meant to be readable by Japanese reviewers too.
